@@ -1,0 +1,47 @@
+---
+title: "Madison Zoning Data Analysis"
+author: "Harald Kliems"
+date: "June 20, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Background
+<https://www.nytimes.com/interactive/2019/06/18/upshot/cities-across-america-question-single-family-zoning.html>
+
+# Data sources
+* Madison zoning data is available from the city's Open Data portal: <https://data-cityofmadison.opendata.arcgis.com/datasets/zoning-districts>
+    + data is licensed under the [City of Madison Data Policy}(https://www.cityofmadison.com/policy/data)
+* The meaning of each zoning district is documented in MuniCode, specifically [28.032](https://library.municode.com/wi/madison/codes/code_of_ordinances?nodeId=COORMAWIVOIICH20--31_CH28ZOCOOR_SUBCHAPTER_28CREDI_28.032REDIUS) and [28.033](https://library.municode.com/wi/madison/codes/code_of_ordinances?nodeId=COORMAWIVOIICH20--31_CH28ZOCOOR_SUBCHAPTER_28CREDI_28.033REDIBUFO)
+
+## Data prep outside of R
+To calculate the area of each zoning area:
+
+1. Download shapefile from <https://opendata.arcgis.com/datasets/4bfd0deffa8f4d5f8eefe868ab91493c_9.zip>
+1. Import as vector layer into [QGIS](https://www.qgis.org/en/site/) 3.63
+1. Open Attributes table
+1. Use field calculator to add new `area` variable: `area(transform($geometry, 'EPSG:4326','EPSG:3763'))`
+1. Export as CSV
+
+# Analysis
+## Determine what counts as residential
+The *New York Times* analysis focused exclusively on residential districts, leaving out commercial or mixed use districts: "These maps highlight the land exclusively set aside for housing."
+Ordinance 28.032 defines the following as residential districts:
+SR-C1, SR-C2, SR-C3, SR-V1, SR-V2, TR-C1, TR-C2, TR-C3, TR-C4, TR-V1, TR-V2, TR-U1, TR-U2, TR-R, TR-P
+
+All other Madison zoning codes will be excluded from the analysis. 
+
+## Determine what counts as "zoned for detached single-family homes"
+The *Times* focuses on "codes devoted to detached single-family homes, grouping rowhouses more common in older East Coast cities like Washington and New York into a second category covering all other housing types."
+
+Ordinance 28.033 lists the following building forms:
+
+[Table of Residential Building Forms](images/28-003-table.png)
+
+Determining what falls under detached single-family homes appears [^1] straightforward:  SR-C1, SR-C2, TR-C1, TR-C2, TR-C3, TR-R.
+
+
+[^1] In [a Twitter thread](https://twitter.com/crschmidt/status/1141040313655549952), Christopher Schmidt pointed out that even cities that seemingly don't limit most parts of the city to single-family homes, requirements such as lot sizes or building setbacks effectively still make it impossible to build anything but single-family homes. 
