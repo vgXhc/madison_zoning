@@ -10,7 +10,26 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Background
+The *New York Times* recently published an article analyzing how much land in large US cities only allows the construction of single-family detached houses. 
 <https://www.nytimes.com/interactive/2019/06/18/upshot/cities-across-america-question-single-family-zoning.html>
+
+The cities analyzed were
+
+City                  Proportion single-family detached to all housing
+--------              ----------------------
+New York              15%
+Washington            36%
+Minneapolis           70%
+Los Angeles           75%
+Portland (OR)         77%
+Seattle               81%
+Charlotte (NC)        84%
+Sandy Springs (GA)    85%
+Arlington (TX)        89%
+San Jose (CA)         94%
+
+I immediately wondered how my current hometown, Madison (WI) compares.
+
 
 # Data sources
 * Madison zoning data is available from the city's Open Data portal: <https://data-cityofmadison.opendata.arcgis.com/datasets/zoning-districts>
