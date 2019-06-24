@@ -61,3 +61,12 @@ other_area <- data %>%
 total <- data %>% summarize(sum(ShapeSTArea))
 res_sfr/(total-other_area)
 sfr_ratio <- round((res_sfr/res_total)*100, digits = 0)
+
+# relationship between % single family zoning and overall density
+dens_zon <- read_csv("data/density_zoning.csv")
+
+dens_zon %>% 
+  spread(Measure, Value) %>%
+  ggplot(aes(sfr, density, label = City)) +
+  geom_point() +
+  geom_text(check_overlap = TRUE, angle = 45, vjust = 0.1, hjust = -0.1)
