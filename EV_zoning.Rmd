@@ -1,0 +1,38 @@
+---
+title: "Where are standalone electric vehicle charging stations going to be permitted?"
+author: "Harald Kliems"
+date: "8/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r results='hide', echo=FALSE, message=FALSE}
+library(tmap)
+library(tidyverse)
+library(sf)
+# Get zoning districts from City of Madison Open Data portal
+zoning <- read_sf("data/Zoning_Districts.shp") #https://data-cityofmadison.opendata.arcgis.com/datasets/zoning-districts/data
+```
+At the September 1, 2020 Common Council meeting, resolution 61629 will be introduced, "Amending Sections 28.211, 28.061, 28.072, 28.082 and 28.091 and Creating Section 28.141(8)(e) of the Madison General Ordinances to create a new use, Electric Vehicle Charging Facility, and to require that certain future parking facilities are constructed to include a specified amount of Electric Vehicle Capable and Electric Vehicle Ready spaces."
+
+In the [draft ordinance](https://madison.legistar.com/LegislationDetail.aspx?ID=4624063&GUID=D517BADE-2D18-4192-82B8-C3772E299C60), the following codes are defined as allowing stand-alone electric vehicle charging stations:
+
+> Under this ordinance, these facilities would be permitted uses in the Mixed-Use Center (MXC), Commercial Center Transitional (CC-T), Commercial Center (CC), Downtown Core (DC), Urban Office Residential (UOR), Urban Mixed Use (UMX), Traditional Employment (TE), Suburban Employment (SE), Suburban Employment Center (SEC), Employment Campus (EC), Parks and Recreation (PR), and Airport (AP) districts.
+
+# Map
+This is a map of all the zoning districts mentioned in the ordinance.
+```{r echo=FALSE, message=FALSE}
+permitted <- c("CC-T", "CC", "DC", "UOR", "UMX", "TE", "SE", "SEC", "EC", "PR", "AP")
+
+tmap_mode("view")
+
+zoning %>% 
+  filter(ZONING_COD %in% permitted) %>% 
+  tm_shape() +
+  tm_polygons("ZONING_COD")
+```
+
