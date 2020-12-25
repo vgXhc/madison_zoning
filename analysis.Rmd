@@ -10,7 +10,7 @@ date: 2019-06-20
 repository_url: https://github.com/vgXhc/madison_zoning
 compare_updates_url:
 creative_commons: CC BY-SA
-preview: data/screenshot_red_dot_map.png
+preview: images/residential-zoning-map-madison.png
 output: 
   distill::distill_article:
     self_contained: false
