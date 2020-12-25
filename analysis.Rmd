@@ -1,8 +1,19 @@
 ---
 title: "How much of Madison allows only detached single-family housing?"
-author: "Harald Kliems"
-date: "June 20, 2019"
-output: html_document
+description: |
+  Recreating a _New York Times_ analysis of how much of Madison's residential areas only allowed single-family detached homes
+author:
+  - name: Harald Kliems 
+    orcid_id: 0000-0003-2542-0047
+    url: https://haraldkliems.netlify.app/
+date: 2019-06-20
+repository_url: https://github.com/vgXhc/madison_zoning
+compare_updates_url:
+creative_commons: CC BY-SA
+preview: data/screenshot_red_dot_map.png
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}
@@ -39,7 +50,9 @@ I immediately wondered how my current hometown, Madison (WI), would compare.
 
 
 # Analysis
+
 I'll work with [R](https://www.r-project.org/)'s `tidyverse` package.
+
 ```{r, results = 'hide'}
 library(tidyverse)
 ```
@@ -49,7 +62,7 @@ Load the data with the `read_csv` function.
 ```{r}
 data <- read_csv(
   "https://opendata.arcgis.com/datasets/4bfd0deffa8f4d5f8eefe868ab91493c_9.csv",
-  col_types = "iccccddcc")
+  col_types = "iccccccdd")
 ```
 
 
@@ -136,7 +149,7 @@ San Jose (CA)         94%
 
 But of course it also means that a huge proportion of our residential lands is off limits for even medium density development.
 
-A map (styled to look roughly similar to the NYT maps) helps visualize this:
+A map created in `QGIS`  and styled to look roughly similar to the NYT maps helps visualize this:
 
 ![Map of all residential and single-family detached zoning in Madison](images\residential-zoning-map-madison.png)
 
